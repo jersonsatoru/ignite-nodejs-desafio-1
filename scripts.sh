@@ -14,4 +14,4 @@ curl http://localhost:3333/todos/ -H 'username: jersonsatoru' | json_pp
 # curl -X PATCH http://localhost:3333/todos/197cc527-b9bd-4711-90c5-cff32bf53246/done -H 'content-type: application/json' -H 'username: jersonsatoru'
 
 # delete todo
-# curl -X DELETE http://localhost:3333/todos/197cc527-b9bd-4711-90c5-cff32bf53246 -H 'content-type: application/json' -H 'username: jersonsatoru'
+# curl -X DELETE http://localhost:3333/todos/35448109-888a-4141-b079-e53a79b01155 -H 'content-type: application/json' -H 'username: jersonsatoru'

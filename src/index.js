@@ -25,6 +25,14 @@ function checksExistsUserAccount(request, response, next) {
 
 app.post('/users', (request, response) => {
   const { name, username } = request.body;
+
+  const exists = users.find((u) => u.username === username);
+  if (exists) {
+    return response.status(400).json({
+      error: 'Mensagem de erro',
+    });
+  }
+
   const newUser = {
     id: uuidv4(),
     name,
@@ -76,6 +84,12 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   } = request;
 
   const todo = user.todos.find((t) => t.id === id);
+  if (!todo) {
+    return response.status(404).json({
+      error: 'Mensagem do erro',
+    });
+  }
+
   todo.title = title;
   todo.deadline = new Date(deadline);
 
@@ -91,6 +105,13 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
   } = request;
 
   const todo = user.todos.find((t) => t.id === id);
+
+  if (!todo) {
+    return response.status(404).json({
+      error: 'Mensagem do erro',
+    });
+  }
+
   todo.done = true;
 
   return response.json(todo);
@@ -106,12 +127,9 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
 
   const index = user.todos.findIndex((t) => t.id === id);
 
-  console.log(index);
-  console.log(`Aqui!! ${id}`);
-
   if (index < 0) {
-    return response.status(400).json({
-      message: 'TODO not found',
+    return response.status(404).json({
+      error: 'TODO not found',
     });
   }
 
